@@ -26,6 +26,13 @@ const LoginForm = () => {
                 <button type="submit">로그인</button>
                 <button>회원가입</button>
             </div>
+            <style jsx>{`
+                form {
+                    display : flex;
+                    flex-direction: row;
+                    align-items : flex-end;
+                }
+            `}</style>
         </form>
     );
 }
