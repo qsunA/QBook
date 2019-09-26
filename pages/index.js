@@ -1,10 +1,12 @@
 import LoginForm from "../components/common/LoginForm"
+import StarComponent from "../components/common/StarComponent"
 
 const Home=()=>{
     return(
         <div>            
             <div className="center-align">
-                    sssff
+                    sssff fs
+                    <StarComponent/>
             </div>           
         </div>
     )
