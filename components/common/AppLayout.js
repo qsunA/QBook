@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from './LoginForm';
+import Link from 'next/link';
 
 const AppLayout = ({children}) => {
     return (
@@ -17,23 +18,31 @@ const AppLayout = ({children}) => {
                         <nav>
                             <ul>
                                 <li>
-                                    홈
+                                    <Link href="/">
+                                        <a>홈</a>
+                                    </Link>                            
                                 </li>
                                 <li>
-                                    소장책 보기
+                                    <Link href="/myBook">
+                                        <a>소장책 보기</a>
+                                    </Link>   
                                 </li>
                                 <li>
-                                    책 서평
+                                    <Link href="/review">
+                                        <a>서평보기</a>
+                                    </Link>   
                                 </li>
                                 <li>
-                                    공감 더하기
+                                    <Link href="/heartPlus">
+                                        <a>공감더하기</a>
+                                    </Link>   
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
             </header>
-            <div>
+            <div className="center-align">
                 {children}
             </div>
             <style jsx>{`
@@ -68,6 +77,10 @@ const AppLayout = ({children}) => {
                 header ul li{
                     list-style-type : none;
                     display : inline-block;
+                    color : #DBDFCB;
+                }
+                header h1{
+                    color : #5F5E58
                 }
             `}
 

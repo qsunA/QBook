@@ -3,12 +3,17 @@ import { useCallback, useState } from "react";
 
 const signUp = ()=>{
 
-    const [id,onChangeId] = useInput('');
+    const [userId,onChangeUserId] = useInput('');
     const [password,onChangePassword] = useInput('');
-    const [passwordChk,onChangePasswordChk] = useInput('');
+    const [passwordChk,setPasswordChk] = useState('');
     const [nickname,onChangeNickname] = useInput('');
     const [email,onChangeEmail] = useInput('');
     const [passwordError,setPasswordError] = useState(false);
+
+    const onChangePasswordChk = useCallback((e) => {
+        setPasswordError(e.target.value!==password);
+        setPasswordChk(e.target.value);    
+    }, [password]);
  
     const onSubmit = useCallback((e)=>{
         e.preventDefault();
@@ -17,26 +22,26 @@ const signUp = ()=>{
         }
 
         const user = {
-            id : id,
+            userId : userId,
             password : password,
             nickname : nickname,
             email : email
         };
 
         console.log({
-            id,
+            userId,
             password,
             passwordChk,
             email,
             nickname
         })
-    },[id,password,passwordChk,email,nickname]);
+    },[userId,password,passwordChk,email,nickname]);
 
     return(
         <form onSubmit={onSubmit}>
             <div>
                 <label htmlFor="user-id">아이디</label>
-                <input value={id} required onChange={onChangeId}/>
+                <input value={userId} required onChange={onChangeUserId}/>
             </div>
             <div>
                 <label htmlFor="user-password">비밀번호</label>
@@ -51,7 +56,7 @@ const signUp = ()=>{
             </div>
             <div>
                 <label htmlFor="user-email">이메일</label>
-                <input value={email} required onChange={onChangeEmail}/>
+                <input value={email} required onChange={onChangeEmail} type="email"/>
             </div>
             <div>
                 <label htmlFor="user-nickname">닉네임</label>

@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import classnames from 'classnames';
+
 
 const StarComponent = ()=>{
+    const [selected, setSelected] = useState(false);
+
+    const onClickStar = useCallback(()=>{
+        console.log(selected);
+        setSelected(!selected);
+    },[selected]);
+
     return(
-        <div className="star">
+        <div className={classnames('star',{select : selected})} onClick={onClickStar}>
             <style jsx>{`
             .star{
                 height: 25px;
                 width: 25px;
-                background : #49A6A6;
+                background : #808080;
                 clip-path:polygon(
                     50% 0%,
                     63% 38%,
@@ -20,6 +29,10 @@ const StarComponent = ()=>{
                     0% 38%,
                     37% 38%
                 );
+            }
+
+            .select {
+                background : #FF0000; 
             }
             `}</style>
         </div>
