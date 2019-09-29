@@ -2,16 +2,10 @@ import React, { useState, useCallback } from 'react';
 import classnames from 'classnames';
 
 
-const StarComponent = ()=>{
-    const [selected, setSelected] = useState(false);
-
-    const onClickStar = useCallback(()=>{
-        console.log(selected);
-        setSelected(!selected);
-    },[selected]);
+const StarComponent = ({selected=false,onClick=f=>f})=>{
 
     return(
-        <div className={classnames('star',{select : selected})} onClick={onClickStar}>
+        <div className={classnames('star',{select : selected})} onClick={onClick}>
             <style jsx>{`
             .star{
                 height: 25px;
