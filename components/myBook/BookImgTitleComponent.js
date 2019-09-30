@@ -3,11 +3,21 @@ import React from 'react';
 const BookImgTitleComponent = ({img, title}) =>{
     return(
         <div>
-            <image src={img}></image>
+            <img src={img? img: '/static/img/no_img.png'}/>
             <label>{title}</label>
             <style jsx>{`
-                width : 120px;
-                
+                div{
+                    display : flex;
+                    flex-direction : column;
+                    align-itme : center;
+                    cursor: pointer;
+                }
+
+                img {
+                    max-width : 190px;
+                    height : '100%';
+                    border : 1.2px solid #6D7D7B;
+                }
             `}</style>
         </div>
     );

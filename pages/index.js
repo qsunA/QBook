@@ -1,5 +1,5 @@
-import LoginForm from "../components/common/LoginForm"
 import StarComponent from "../components/common/StarComponent"
+import BookImgListComponent from "../components/myBook/BookImgListComponent"
 
 const Home=()=>{
     return(
@@ -7,6 +7,7 @@ const Home=()=>{
             <div className="center-align">
                     sssff fs
                     <StarComponent/>
+                    <BookImgListComponent/>
             </div>           
         </div>
     )
