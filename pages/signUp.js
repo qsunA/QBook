@@ -65,6 +65,25 @@ const signUp = ()=>{
             <div>
                 <button type="submit">가입하기</button>
             </div>
+            <style jsx>{`
+
+                form,div {
+                    flex : 1;
+                    width : 100%;
+                    margin : 15px;
+                }
+                div {
+                    display : flex;
+                    flex-direction : row;
+                    height : 35px;
+                }
+                label {
+                    flex : 1;
+                }
+                input {
+                    flex : 3;
+                }
+            `}</style>
         </form>
     );
 }

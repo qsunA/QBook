@@ -24,21 +24,23 @@ const BookInfoComponent = ()=>{
                     <label>가격</label>
                     2000원
                 </p>
-                <p>별점</p>
-                <p>리뷰</p>
+                <p>별점 : </p>
+                <p>리뷰 : </p>
             </div>
             <style jsx>{`
                 .info{
                     display: flex;
-                    flex-direction : row;                    
+                    flex : 1;
+                    flex-direction : row;       
                 }
                 img {
                     flex : 1;
+                    max-width : 200px;
+                    border : 1.5px solid #6D7D7B;
+                    margin : 10px;
                 }
                 .detail{
-                    display : flex;
                     flex : 2;
-                    flex-display : column;
                 }
 
             `}</style>

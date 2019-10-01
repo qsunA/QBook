@@ -1,5 +1,6 @@
 import StarComponent from "../components/common/StarComponent"
 import BookImgListComponent from "../components/myBook/BookImgListComponent"
+import BookInfoComponent from "../components/heartBook/BookInfoComponent"
 
 const Home=()=>{
     return(
@@ -7,7 +8,7 @@ const Home=()=>{
             <div className="center-align">
                     sssff fs
                     <StarComponent/>
-                    <BookImgListComponent/>
+                    <BookInfoComponent/>
             </div>           
         </div>
     )

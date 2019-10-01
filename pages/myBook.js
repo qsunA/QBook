@@ -1,9 +1,10 @@
-import BookImgTitleComponent from "../components/myBook/BookImgTitleComponent"
+import BookImgListComponent from "../components/myBook/BookImgListComponent"
+
 
 const myBook = ()=>{
     return(
         <div>
-            <BookImgTitleComponent img='../img/488429621.jpg' title="연아책임"/>
+            <BookImgListComponent/>
         </div>
     )
 };

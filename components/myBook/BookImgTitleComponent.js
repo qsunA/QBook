@@ -12,6 +12,10 @@ const BookImgTitleComponent = ({img, title}) =>{
                     align-itme : center;
                     cursor: pointer;
                 }
+                
+                :hover {
+                        opacity : 0.5;
+                }
 
                 img {
                     max-width : 190px;
