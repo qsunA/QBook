@@ -8,6 +8,9 @@
     "@material-ui/icons": "^4.2.1",
     "classnames": "^2.2.6",
     "draft-js": "^0.11.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.4.2",
     "eslint": "^6.5.0",
     "eslint-config-airbnb": "^18.0.1",
     "jest": "^24.9.0",
@@ -23,7 +26,8 @@
   "scripts": {
     "dev": "next -p 9090",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",
