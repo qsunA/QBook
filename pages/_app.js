@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from "next/head";
-import { Provider } from 'mobx-react';
-import * as getStores from '../store';
-import { configure } from 'mobx';
-import { withMobx } from 'next-mobx-wrapper';
 import AppLayout from '../components/common/AppLayout';
+import { UserConsumer, UserProvider } from '../store/UserContext';
 
-configure({enforceActions:'observed'});
+const AppProvider = ({contexts, children}) => contexts.reduce(
+    (prev,context)=> React.createElement(context, {
+        children : prev
+    }),
+    children  
+);
 
-const App = ({Component,store})=>{
+const App = ({Component})=>{
 
-    useEffect(()=>{
-        console.log(`app useEffect`)
-        store.bookStore.initBookList();
-    },[]);
+    // useEffect(()=>{
+    //     console.log(`app useEffect`)
+    //     store.bookStore.initBookList();
+    // },[]);
 
     return(
         <>
             <Head>
                 <title>App</title>
             </Head>
-            <Provider {...store}>
+            <AppProvider contexts={[UserProvider]}>
                 <AppLayout>
                     <Component/>
-                </AppLayout>                
-            </Provider>
+                </AppLayout>   
+            </AppProvider>              
         </>
     )
 }
@@ -35,4 +37,4 @@ App.propTypes = {
   store: PropTypes.object.isRequired
 };
 
-export default withMobx(getStores)(App); 
+export default App; 

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from './LoginForm';
 import Link from 'next/link';
+import { UserContext } from '../../store/UserContext';
+import UserProfile from './UserProfile';
 
 const AppLayout = ({children}) => {
+
+    const {state} = useContext(UserContext);
+
     return (
         <div>
             <header>
@@ -12,7 +17,9 @@ const AppLayout = ({children}) => {
                         <h1>
                             QBook
                         </h1>
-                        <LoginForm/>
+                        {
+                            state.user ? <UserProfile user={state.user}/> : <LoginForm/>
+                        }
                     </div>
                     <div>
                         <nav>

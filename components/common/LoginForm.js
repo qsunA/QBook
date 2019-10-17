@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useInput } from '../../utils/utils';
 import Link from 'next/link';
+import { UserContext } from '../../store/UserContext';
 
 const LoginForm = () => {
+    const {actions} = useContext(UserContext);
     const [userId,onChangeUserId] =  useInput('');
     const [password,onChangePassword] = useInput('');
     const onSubmitForm = useCallback((e)=>{
@@ -11,6 +13,9 @@ const LoginForm = () => {
             userId : userId,
             password : password
         };
+
+        actions.login(user);
+        
         console.log({
             userId,
             password

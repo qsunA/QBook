@@ -1,14 +1,10 @@
-import StarComponent from "../components/common/StarComponent"
-import BookImgListComponent from "../components/myBook/BookImgListComponent"
-import BookInfoComponent from "../components/heartBook/BookInfoComponent"
+import { TodoListBoard } from "../components/todo/TodoListBoard"
 
 const Home=()=>{
     return(
         <div>            
             <div className="center-align">
-                    sssff fs
-                    <StarComponent/>
-                    <BookInfoComponent/>
+                    <TodoListBoard/>
             </div>           
         </div>
     )
