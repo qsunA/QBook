@@ -2,10 +2,15 @@ import { TodoListBoard } from "../components/todo/TodoListBoard"
 
 const Home=()=>{
     return(
-        <div>            
+        <div className="index-wrap">            
             <div className="center-align">
                     <TodoListBoard/>
-            </div>           
+            </div>
+            <style jsx>{`
+                .index-wrap{
+                    padding : 10px;
+                }
+            `}</style>           
         </div>
     )
 }

@@ -1,6 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useInput } from '../../utils/utils';
 import { TodoCard } from './TodoCard';
+import { TodoListTitleForm } from './TodoListTitleForm';
+import { TodoCardListAddBtn } from './TodoCardListAddBtn';
+import { TodoCardBoardForm } from './TodoCardBoardForm';
+import { TodoCardAddBtn } from './TodoCardAddBtn';
 
 export const TodoListBoard = ()=>{
     const [listTitle, onChangeListTitle] = useInput('');
@@ -46,56 +50,64 @@ export const TodoListBoard = ()=>{
         setTodoCardTitle(e.target.value);
     }
 
+    const onCardDragOver = useCallback((e)=>{
+        e.preventDefault();
+    },[]);
+
+    const onCardDrop = useCallback((e)=>{
+        let idx = e.dataTransfer.getData('idx');
+
+        console.log('onCardDropIdx: '+idx);
+    },[]);
+
     return(
-        <div>
+        <div className="board-list-wrap">
             {
                 todoListComplete ? 
                 <div>
-                    <div>
+                    <div className="list-title">
                         {listTitle}
-                    </div>
-                    <div>
+                    </div>                            
+                    <div onDragOver={onCardDragOver} onDrop={onCardDrop}>
                     {
                         todoCardList.length>0 && 
                         todoCardList.map((todo, idx)=>(
-                            <TodoCard key={idx} todo={todo}/>
+                            <TodoCard key={idx} todo={todo} todoKey={idx}/>
                         ))
                     }
                     </div>                    
                     <div>
                     {
                         todoCardAddFlag? 
-                        <form>
-                            <input value={todoCardTitle} onChange={onChangeTodoCardTitle} required/>
-                            <div>
-                                <button onClick={onClickTodoCardTitleAdd}>저장</button>
-                                <button onClick={onClickTodoCard}>취소</button>
-                            </div>
-                        </form>
-                        :
-                        <div onClick={onClickTodoCard}>
-                            카드추가
-                        </div>
+                            <TodoCardBoardForm todoCardTitle={todoCardTitle} onChangeTodoCardTitle={onChangeTodoCardTitle}
+                            onClickTodoCardTitleAdd={onClickTodoCardTitleAdd} onClickTodoCard={onClickTodoCard}/>
+                            :
+                            <TodoCardAddBtn onClickTodoCard={onClickTodoCard}/>
                     }
                     </div>
                 </div>
                 :<div>
                 {
                     todoListAddFlag? 
-                    <form>
-                        <input value={listTitle} onChange= {onChangeListTitle} required/>
-                        <div>
-                            <button onClick={onClickTodoListTitleAdd}>추가</button>
-                            <button onClick={onChangeAddFlag}>x</button>
-                        </div>
-                    </form>
-                    : <div onClick={onCreateTodoList}>
-                        추가염
-                    </div>
+                    <TodoListTitleForm listTitle={listTitle} onChangeListTitle={onChangeListTitle}
+                    onClickTodoListTitleAdd={onClickTodoListTitleAdd} onChangeAddFlag={onChangeAddFlag}/>
+                    : <TodoCardListAddBtn onCreateTodoList={onCreateTodoList}/>
                 }
                 </div>
                 
             }
+            <style jsx>{`
+                .board-list-wrap{
+                    margin : 0;
+                    padding : 15px;
+                    background: #e1e2e5;
+                    border-radius: 2px;
+                    width : 250px;
+                }
+                .list-title{
+                    font-size : 13px;
+                }
+            `}</style>
         </div>
         
     );
