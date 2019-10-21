@@ -1,18 +1,26 @@
-import React, { useState, useCallback } from 'react';
-import { useInput } from '../../utils/utils';
+import React, { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { TodoCard } from './TodoCard';
 import { TodoListTitleForm } from './TodoListTitleForm';
 import { TodoCardListAddBtn } from './TodoCardListAddBtn';
 import { TodoCardBoardForm } from './TodoCardBoardForm';
 import { TodoCardAddBtn } from './TodoCardAddBtn';
 
-export const TodoListBoard = ()=>{
-    const [listTitle, onChangeListTitle] = useInput('');
+export const TodoListBoard = ({todos,onAddTodoBoardList})=>{
+    const [listTitle, setListTitle] = useState('');
     const [todoListAddFlag, setTodoListAddFlag] = useState(false);
     const [todoListComplete, setTodoListComplete] = useState(false);
     const [todoCardAddFlag, setTodoCardAddFlag] = useState(false);
     const [todoCardTitle, setTodoCardTitle] = useState('');
     const [todoCardList, setTodoCardList] = useState([]);
+
+    useEffect(() => {
+        if(todos){
+            setListTitle(todos.title);
+            setTodoListComplete(true);
+            console.log(todos.title)
+        }
+    }, [todos]);
 
     const onCreateTodoList = useCallback(()=>{
         setTodoListAddFlag(prev=>!prev);
@@ -23,8 +31,8 @@ export const TodoListBoard = ()=>{
         if(!listTitle){
             return;
         }
-        console.log(listTitle);
         setTodoListComplete(true);
+        onAddTodoBoardList(listTitle);
     },[listTitle]);
 
     const onClickTodoCard = useCallback(()=>{
@@ -36,7 +44,6 @@ export const TodoListBoard = ()=>{
         if(!todoCardTitle){
             return;
         }
-        console.log(todoCardTitle);
         setTodoCardList([...todoCardList, {title : todoCardTitle, checkList : []}]);
         setTodoCardTitle('');
         setTodoCardAddFlag(prev=>!prev);
@@ -50,8 +57,14 @@ export const TodoListBoard = ()=>{
         setTodoCardTitle(e.target.value);
     }
 
+    const onChangeListTitle = (e) =>{
+        setListTitle(e.target.value);
+    }
+
     const onCardDragOver = useCallback((e)=>{
         e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
     },[]);
 
     const onCardDrop = useCallback((e)=>{
@@ -112,3 +125,7 @@ export const TodoListBoard = ()=>{
         
     );
 };
+
+TodoListBoard.propTypes = {
+    onAddTodoBoardList : PropTypes.func.isRequired
+}

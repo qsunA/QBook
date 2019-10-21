@@ -25,11 +25,17 @@ export const TodoCard = ({todo,todoKey})=>{
 
     const onTodoCardDragStart = useCallback((e)=>{
         console.log('dragstart: ', e.target.dataset.idx);
+        e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData("idx",e.target.dataset.idx);
     },[]);
 
+    const onDragEnd = useCallback((e)=>{
+        console.log('onDragEnd: ', e.target.dataset.idx);
+    },[]);
+
     return(
-        <div className="border-card-wrap" draggable='true' onDragStart={onTodoCardDragStart} data-idx={todoKey}>
+        <div className="border-card-wrap" draggable='true' 
+        onDragStart={onTodoCardDragStart} onDragEnd={onDragEnd} data-idx={todoKey}>
             <div className="card-title">
                 {todo.title}
             </div>            

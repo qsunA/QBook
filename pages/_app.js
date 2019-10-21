@@ -19,7 +19,7 @@ const App = ({Component})=>{
     // },[]);
 
     return(
-        <>
+        <div>
             <Head>
                 <title>App</title>
             </Head>
@@ -27,8 +27,13 @@ const App = ({Component})=>{
                 <AppLayout>
                     <Component/>
                 </AppLayout>   
-            </AppProvider>              
-        </>
+            </AppProvider>
+            <style jsx>{`
+                div{
+                    height: 100%;
+                }
+            `}</style>              
+        </div>
     )
 }
 
