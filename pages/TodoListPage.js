@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { TodoListBoard } from "../components/todo/TodoListBoard";
+import TodoListContext from "../context/TodoListContext";
 
 const initialValue = [
     {title:'title', idx : 1},
@@ -7,19 +8,21 @@ const initialValue = [
 ];
 
 const TodoListPage = ()=>{
-    
-    const [todoBoardList, setTodoBoardList] = useState(initialValue);
+    const {
+        todoBoard,
+        addTodoBoard
+    } = useContext(TodoListContext);
 
     const onAddTodoBoardList = (listTitle) =>{
-        setTodoBoardList([...todoBoardList, {title: listTitle, idx : todoBoardList.length}]);
+        addTodoBoard({listTitle : listTitle, index : todoBoard.length, todoBoardkey : todoBoard.length, todoList : []});
     }
 
-    console.log(todoBoardList.length);
+    console.log(todoBoard.length);
     return(
         <div>
             {
-                todoBoardList.length>0 && 
-                todoBoardList.map((v,idx)=>(
+                todoBoard.length>0 && 
+                todoBoard.map((v,idx)=>(
                     <TodoListBoard key={idx} todos = {v} onAddTodoBoardList={onAddTodoBoardList}/>
                 ))
             }

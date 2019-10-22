@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from "next/head";
 import AppLayout from '../components/common/AppLayout';
-import { UserConsumer, UserProvider } from '../store/UserContext';
+import { UserProvider } from '../store/UserContext';
+import TodoListProvider from '../context/TodoListProvider';
 
 const AppProvider = ({contexts, children}) => contexts.reduce(
     (prev,context)=> React.createElement(context, {
@@ -23,7 +24,7 @@ const App = ({Component})=>{
             <Head>
                 <title>App</title>
             </Head>
-            <AppProvider contexts={[UserProvider]}>
+            <AppProvider contexts={[UserProvider, TodoListProvider]}>
                 <AppLayout>
                     <Component/>
                 </AppLayout>   

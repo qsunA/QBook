@@ -11,7 +11,7 @@ class TodosProvider extends Component {
     actions = {
         addTodos : (todo)=>{
             this.setState(()=>({
-                todos : [...todos, {title: todo.title, idx : todo.idx, todoList : [todo.todoList]}]
+                todos : [...todos, {title: todo.title, idx : todo.idx, todoList : [todo.todoList ? todo.todoList : []]}]
             }));
         },
 
@@ -24,6 +24,17 @@ class TodosProvider extends Component {
                 todos : todos.filter((v,i)=>i!== todo.idx)
             }))
         }
+    }
+
+    render(){
+        const {state,actions} = this;
+        const value = {state,actions};
+
+        return(
+            <Provider value={value}>
+                {this.props.children}
+            </Provider>
+        )
     }
 }
 
