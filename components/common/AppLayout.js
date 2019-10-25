@@ -1,43 +1,41 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import LoginForm from './LoginForm';
-import Link from 'next/link';
-import { UserContext } from '../../store/UserContext';
-import UserProfile from './UserProfile';
 import { Header } from './Header';
 import { Footer } from './Footer';
 
 const AppLayout = ({children}) => {
 
-    const {state} = useContext(UserContext);
-
     return (
-        <div>
+        <div className="body-container">
             <Header/>           
             <main className="content-wrapper">
                 {children}
             </main>
             <Footer/>
             <style jsx>{`
-                div {
+
+                .body-container{
                     margin : 0;
                     padding : 0;
                     height : 100%;
+                    width : 100%;
+                    display : flex;
+                    flex-direction : column;
+                    flex-wrap : nowrap;
                 }
                 .center-align {
                     margin : 0 auto;
                     width : 1080px;   
                 }
-
                 .content-wrapper{
-                    height : 100%;
-                }    
-                
+                    flex-grow: 1;
+                    overflow: auto;
+                    min-height: 2em;
+                }                 
+                   
             `}
-
             </style>
-        </div>
-        
+        </div>        
     );
 }
 

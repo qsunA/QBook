@@ -9,3 +9,10 @@ export const useInput = (initValue = null) =>{
     );
     return [value,handler];
 }
+
+export const isEmptyObject=(obj)=>{
+    if(Object.keys(obj).length===0 && JSON.stringify(obj)==="{}"){
+        return true;
+    }
+    return false;
+}

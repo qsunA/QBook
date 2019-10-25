@@ -1,39 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TodoCard } from './TodoCard';
-import { TodoListTitleForm } from './TodoListTitleForm';
-import { TodoCardListAddBtn } from './TodoCardListAddBtn';
 import { TodoCardBoardForm } from './TodoCardBoardForm';
 import { TodoCardAddBtn } from './TodoCardAddBtn';
 
-export const TodoListBoard = ({todos,onAddTodoBoardList})=>{
+export const TodoListBoard = ({todos})=>{
     const [listTitle, setListTitle] = useState('');
-    const [todoListAddFlag, setTodoListAddFlag] = useState(false);
-    const [todoListComplete, setTodoListComplete] = useState(false);
     const [todoCardAddFlag, setTodoCardAddFlag] = useState(false);
     const [todoCardTitle, setTodoCardTitle] = useState('');
     const [todoCardList, setTodoCardList] = useState([]);
 
     useEffect(() => {
         if(todos){
-            setListTitle(todos.title);
-            setTodoListComplete(true);
-            console.log(todos.title)
+            setListTitle(todos.listTitle);
         }
-    }, [todos]);
-
-    const onCreateTodoList = useCallback(()=>{
-        setTodoListAddFlag(prev=>!prev);
-    },[]);
-
-    const onClickTodoListTitleAdd = useCallback((e)=>{
-        e.preventDefault();
-        if(!listTitle){
-            return;
-        }
-        setTodoListComplete(true);
-        onAddTodoBoardList(listTitle);
-    },[listTitle]);
+    }, []);
 
     const onClickTodoCard = useCallback(()=>{
         setTodoCardAddFlag(prev=>!prev);
@@ -49,16 +30,8 @@ export const TodoListBoard = ({todos,onAddTodoBoardList})=>{
         setTodoCardAddFlag(prev=>!prev);
     },[todoCardTitle, todoCardList]);
 
-    const onChangeAddFlag = useCallback(()=>{
-        setTodoListAddFlag(prev=>!prev);
-    },[]);
-
     const onChangeTodoCardTitle = (e)=>{
         setTodoCardTitle(e.target.value);
-    }
-
-    const onChangeListTitle = (e) =>{
-        setListTitle(e.target.value);
     }
 
     const onCardDragOver = useCallback((e)=>{
@@ -69,46 +42,30 @@ export const TodoListBoard = ({todos,onAddTodoBoardList})=>{
 
     const onCardDrop = useCallback((e)=>{
         let idx = e.dataTransfer.getData('idx');
-
-        console.log('onCardDropIdx: '+idx);
     },[]);
-
+    
     return(
         <div className="board-list-wrap">
+            <div className="list-title">
+                {listTitle}
+            </div>                            
+            <div onDragOver={onCardDragOver} onDrop={onCardDrop}>
             {
-                todoListComplete ? 
-                <div>
-                    <div className="list-title">
-                        {listTitle}
-                    </div>                            
-                    <div onDragOver={onCardDragOver} onDrop={onCardDrop}>
-                    {
-                        todoCardList.length>0 && 
-                        todoCardList.map((todo, idx)=>(
-                            <TodoCard key={idx} todo={todo} todoKey={idx}/>
-                        ))
-                    }
-                    </div>                    
-                    <div>
-                    {
-                        todoCardAddFlag? 
-                            <TodoCardBoardForm todoCardTitle={todoCardTitle} onChangeTodoCardTitle={onChangeTodoCardTitle}
-                            onClickTodoCardTitleAdd={onClickTodoCardTitleAdd} onClickTodoCard={onClickTodoCard}/>
-                            :
-                            <TodoCardAddBtn onClickTodoCard={onClickTodoCard}/>
-                    }
-                    </div>
-                </div>
-                :<div>
-                {
-                    todoListAddFlag? 
-                    <TodoListTitleForm listTitle={listTitle} onChangeListTitle={onChangeListTitle}
-                    onClickTodoListTitleAdd={onClickTodoListTitleAdd} onChangeAddFlag={onChangeAddFlag}/>
-                    : <TodoCardListAddBtn onCreateTodoList={onCreateTodoList}/>
-                }
-                </div>
-                
+                todoCardList.length>0 && 
+                todoCardList.map((todo, idx)=>(
+                    <TodoCard key={idx} todo={todo} todoKey={idx}/>
+                ))
             }
+            </div>                    
+            <div>
+            {
+                todoCardAddFlag? 
+                    <TodoCardBoardForm todoCardTitle={todoCardTitle} onChangeTodoCardTitle={onChangeTodoCardTitle}
+                    onClickTodoCardTitleAdd={onClickTodoCardTitleAdd} onClickTodoCard={onClickTodoCard}/>
+                    :
+                    <TodoCardAddBtn onClickTodoCard={onClickTodoCard}/>
+            }
+            </div>
             <style jsx>{`
                 .board-list-wrap{
                     margin : 0;

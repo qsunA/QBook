@@ -9,21 +9,28 @@ class MyDocument extends Document {
   render() {
     return (
       <html>
-        <Head />
+        <Head>
+          <style>{`
+            #__next { height: 100% }
+          `}
+          </style>
+        </Head>
         <body>
           <Main />
           <NextScript />
         </body>
         <style jsx>{`
-            html,body{
+            html, body{
                 height: 100%;
                 width: 100%;
-                overflow: hidden;
+                margin : 0;
             }
 
-            #__next {
-                min-height : 100%;
+            body {
+              display : table;
             }
+
+            #__next { height: 100% }
         `}</style>
       </html>
     )

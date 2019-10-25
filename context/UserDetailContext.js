@@ -9,7 +9,7 @@ const UserDetailContext = createContext({
     dateOfBirth : '',
     registerUser : ()=>{},
     logIn : ()=>{},
-    logOff : ()=>{}
+    logOut : ()=>{}
 })
 
 export default UserDetailContext;

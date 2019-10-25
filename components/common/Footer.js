@@ -6,15 +6,13 @@ export const Footer = ()=>{
             <div>푸터</div>
             <style jsx>{`
                 footer{
-                    height : 100px;
+                    flex-shrink: 0;
                     display : flex;
                     align-items : center;
                     background : #5F5e58;
-                    justify-content : center;
-                    
-                }
-                
-
+                    justify-content : center;  
+                    height : 100px;                  
+                }    
             `}</style>
         </footer>
     )

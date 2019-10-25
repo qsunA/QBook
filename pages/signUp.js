@@ -1,10 +1,10 @@
 import { useInput } from "../utils/utils";
 import { useCallback, useState, useContext } from "react";
-import { UserContext } from "../store/UserContext";
+import UserDetailContext from "../context/UserDetailContext";
 
 const signUp = ()=>{
 
-    const {actions} = useContext(UserContext);
+    const {registerUser} = useContext(UserDetailContext);
     const [userId,onChangeUserId] = useInput('');
     const [password,onChangePassword] = useInput('');
     const [passwordChk,setPasswordChk] = useState('');
@@ -31,7 +31,7 @@ const signUp = ()=>{
             email : email
         };
 
-        actions.signUp(user);
+        registerUser(user);
 
         console.log({
             userId,
@@ -82,7 +82,6 @@ const signUp = ()=>{
             <style jsx>{`
                 form,div {
                     flex : 1;
-                    width : 100%;
                     margin : 15px;
                 }
                 .form-input {                    

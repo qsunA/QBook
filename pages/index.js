@@ -4,7 +4,6 @@ const Home=()=>{
     return(
         <div className="index-wrap">            
             <div className="center-align">
-                    <TodoListBoard/>
             </div>
             <style jsx>{`
                 .index-wrap{

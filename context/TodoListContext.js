@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 const TodoListContext = createContext({
-    todoBoard : [],
+    todoBoardList : [],
     addTodoBoard : ()=>{},
     addTodoList : ()=>{},
     updateTodoBoard : ()=>{},

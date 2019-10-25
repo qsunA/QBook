@@ -3,63 +3,43 @@ import UserDetailContext from '../UserDetailContext';
 
 const UserDetailProvider = ({children}) => {
 
-    const registerUser = ({
-        userId,
-        password,
-        nickname,
-        email,
-        gender,
-        dateOfBirth
-    })=>{
+    const registerUser = (user)=>{
+
+        console.log(user);
         setUserDetails(prev=>{
             return {
                 ...prev,
-                userId : userId,
-                password : password,
-                nickname : nickname, 
-                email: email,
-                gender : gender,
-                dateOfBirth : dateOfBirth 
+                user : user
             }
         })
     }
 
-    const logIn = ({
-        userId,
-        password
-    }) => {
+    const logIn = (user) => {
+        console.log(user);
         // repository 기능 수행
         setUserDetails(prev=>{
             return{
                 ...prev,
-                userId : userId,
-                password : password
+                user : user
             }
         })
     }
 
-    const logOff = ({
-        userId
-    }) => {
+    const logOut = () => {
         setUserDetails(prev=>{
             return{
                 ...prev,
-                userId : ''
+                user : {}
             }
         })
     }
 
 
     const userState = {
-        userId: '',
-        password: '',
-        nickname: '',
-        email : '',
-        gender : '',
-        dateOfBirth : '',
+        user:{},
         registerUser,
         logIn,
-        logOff
+        logOut
     }
 
     const [userDetails, setUserDetails] = useState(userState);

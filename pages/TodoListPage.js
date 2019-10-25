@@ -1,32 +1,36 @@
 import { useState, useCallback, useContext } from "react";
 import { TodoListBoard } from "../components/todo/TodoListBoard";
 import TodoListContext from "../context/TodoListContext";
-
-const initialValue = [
-    {title:'title', idx : 1},
-    {title:'tit', idx : 2}
-];
-
+import DraggableApp from "../components/Draggable/DraggableApp";
+import TodoListAddWrapper from "../components/todo/TodoListAddWrapper";
 const TodoListPage = ()=>{
     const {
-        todoBoard,
+        todoBoardList,
         addTodoBoard
     } = useContext(TodoListContext);
 
     const onAddTodoBoardList = (listTitle) =>{
-        addTodoBoard({listTitle : listTitle, index : todoBoard.length, todoBoardkey : todoBoard.length, todoList : []});
+        console.log(listTitle);
+        addTodoBoard(
+            {
+                listTitle : listTitle, 
+                index : todoBoardList.length, 
+                todoBoardKey : todoBoardList.length, 
+                todoList : []
+            }
+        );
     }
-
-    console.log(todoBoard.length);
+    console.log(todoBoardList);
     return(
         <div>
             {
-                todoBoard.length>0 && 
-                todoBoard.map((v,idx)=>(
-                    <TodoListBoard key={idx} todos = {v} onAddTodoBoardList={onAddTodoBoardList}/>
+                todoBoardList.length>0 && 
+                todoBoardList.map((v,idx)=>(
+                    <TodoListBoard key={idx} todos = {v} />
                 ))
             }
-            <TodoListBoard onAddTodoBoardList={onAddTodoBoardList}/>
+            <TodoListAddWrapper onAddTodoBoardList={onAddTodoBoardList}/>
+            <DraggableApp/>
         </div>
     );  
 }

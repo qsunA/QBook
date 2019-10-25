@@ -44,7 +44,7 @@ const TodoListProvider = ({children}) => {
             return{
                 ...prev,
                 todoBoardList : 
-                [...todoBoardState, 
+                [...prev.todoBoardList, 
                     {listTitle: listTitle, index : index, 
                     todoBoardKey : todoBoardKey, todoList : todoList}]
             }
@@ -159,7 +159,7 @@ const TodoListProvider = ({children}) => {
     }
     
     const todoBoardListState = {
-        todoBoardList : [todoBoardState],
+        todoBoardList : [],
         addTodoBoard,
         addTodoList,
         updateTodoBoard,

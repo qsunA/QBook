@@ -35,6 +35,14 @@ const BookImgListComponent = ()=>{
                 }
                 
             </ul>
+            <ul>
+                {
+                    bookList.map((v,i)=>{
+                        return <li key={i}><BookImgTitleComponent title={v.title} img={v.img} key={i}/></li>
+                    })
+                }
+                
+            </ul>
             <style jsx>{`
                 ul{
                     list-style: none;
