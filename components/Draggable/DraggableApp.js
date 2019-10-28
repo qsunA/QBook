@@ -15,6 +15,11 @@ const DraggableApp = () => {
   });
 	
   const handleDrag = useCallback(({translation, id}) => {
+
+    if(id===4){
+      console.log('test')
+    }
+    
     const delta = Math.round(translation.y / HEIGHT);
     const index = state.order.indexOf(id);
     const dragOrder = state.order.filter(index => index !== id);
@@ -22,6 +27,8 @@ const DraggableApp = () => {
     if (!inRange(index + delta, 0, items.length)) {
       return;
     }
+
+    
 		
     dragOrder.splice(index + delta, 0, id);
     setState(state => ({
@@ -32,6 +39,7 @@ const DraggableApp = () => {
   }, [state.order, items.length]);
 	
   const handleDragEnd = useCallback(() => {
+    console.log(state);
     setState(state => ({
       ...state,
       order: state.dragOrder,

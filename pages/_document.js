@@ -11,6 +11,16 @@ class MyDocument extends Document {
       <html>
         <Head>
           <style>{`
+            html, body{
+              height: 100%;
+              width: 100%;
+              margin : 0;
+            }
+
+            body {
+            display : table;
+            }
+
             #__next { height: 100% }
           `}
           </style>

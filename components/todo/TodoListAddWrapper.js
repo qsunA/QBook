@@ -39,7 +39,7 @@ const TodoListAddWrapper = ({onAddTodoBoardList}) =>{
         }
         <style jsx>{`
             .board-list-wrap{
-                margin : 0;
+                margin-right : 10px;
                 padding : 15px;
                 background: #e1e2e5;
                 border-radius: 2px;
