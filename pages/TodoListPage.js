@@ -3,33 +3,15 @@ import { TodoListBoard } from "../components/todo/TodoListBoard";
 import TodoListContext from "../context/TodoListContext";
 import DraggableApp from "../components/Draggable/DraggableApp";
 import TodoListAddWrapper from "../components/todo/TodoListAddWrapper";
-import Draggable from "../components/Draggable/Draggable";
-import {inRange} from 'lodash';
-
+import { DragDropContext,Droppable, Draggable } from 'react-beautiful-dnd';
 const WIDTH = 250;
 
 const TodoListPage = ()=>{
     const {
         todoBoardList,
-        addTodoBoard
+        addTodoBoard,
+        changeOrderToddBoardList
     } = useContext(TodoListContext);
-
-    const [state,setState] = useState({
-        order : todoBoardList,
-        dragOrder : todoBoardList,
-        draggedIndex : null
-    });
-
-    useEffect(()=>{
-        console.log(todoBoardList);
-        setState(()=>{
-            return {
-                order : todoBoardList,
-                dragOrder : todoBoardList,
-                draggedIndex : null
-            }
-        });
-    },[todoBoardList]);
 
     const onAddTodoBoardList = (listTitle) =>{
         console.log(listTitle);
@@ -43,58 +25,54 @@ const TodoListPage = ()=>{
         );
     }
 
-    const handleDrag = useCallback(({translation, id}) => {
-        if(id===2){
-            console.log('ㅁㅁㅁ')
+    const reorder = (list,startIndex,endIndex)=>{
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex,1);
+        result.splice(endIndex,0,removed);
+        return result;
+    }
+
+    const onDragEnd = (result) =>{
+        if(!result.destination){
+            return;
         }
-        console.log(todoBoardList)
-        const delta = Math.round(translation.x / WIDTH);
-        const index = state.order.findIndex(val=>val.index ===id);
-        const dragOrder = state.order.filter(val => val.index !== id);
-            
-        if (!inRange(index + delta, 0, todoBoardList.length)) {
-          return;
-        }
-            
-        dragOrder.splice(index + delta, 0, id);
-        setState(state => ({
-          ...state,
-          draggedIndex: id,
-          dragOrder
-        }));
-      }, [state.order, todoBoardList.length]);
         
-    const handleDragEnd = useCallback(() => {
-        setState(state => ({
-          ...state,
-          order: state.dragOrder,
-          draggedIndex: null
-        }));
-      }, []);
+        const items = reorder(
+            todoBoardList,
+            result.source.index,
+            result.destination.index
+        );
+
+        changeOrderToddBoardList(items);
+    }
 
     return(
         <div className="todo-board-wrapper">
-            {
-                todoBoardList.length>0 && 
-                todoBoardList.map((v,idx)=>{
-                    const isDragging = state.draggedIndex === idx;
-                    const top = state.dragOrder.indexOf(idx) * (WIDTH + 10);
-                    const draggedTop = state.order.indexOf(idx) * (WIDTH + 10);
-                    return(
-                        <Draggable 
-                            key={idx} 
-                            id={idx} 
-                            onDrag={handleDrag}
-                            onDragEnd={handleDragEnd}
-                        >
-                            <TodoListBoard key={idx} todos = {v} 
-                            isDragging={isDragging}
-                            top={isDragging ? draggedTop : top}/>
-                        </Draggable>
-                    )
-                    
-                })
-            }
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable" direction="horizontal">
+                    {(provided,snapshot) =>(
+                        <div {...provided.droppableProps} >
+                        {
+                            todoBoardList.length>0 && 
+                            todoBoardList.map((v,idx)=>{
+                                return (
+                                <Draggable key={v.todoListKey} draggableId={v.todoBoardKey.toString()} index={idx} >
+                                    {(provided,snapshot) =>(
+                                        <TodoListBoard key={idx} todos = {v}  
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}/>   
+                                    )}                                    
+                                </Draggable>
+                                )
+                            })                            
+                        }
+                        {provided.placeholder}
+                        </div>
+                    )}                
+                </Droppable>
+            
+            </DragDropContext>
+            
             <TodoListAddWrapper onAddTodoBoardList={onAddTodoBoardList}/>
             <style jsx>{`
                 .todo-board-wrapper{

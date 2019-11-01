@@ -33,23 +33,13 @@ export const TodoListBoard = ({todos})=>{
     const onChangeTodoCardTitle = (e)=>{
         setTodoCardTitle(e.target.value);
     }
-
-    const onCardDragOver = useCallback((e)=>{
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        return false;
-    },[]);
-
-    const onCardDrop = useCallback((e)=>{
-        let idx = e.dataTransfer.getData('idx');
-    },[]);
     
     return(
-        <div className="board-list-wrap">
+        <div className="board-list-wrap" >
             <div className="list-title">
                 {listTitle}
             </div>                            
-            <div onDragOver={onCardDragOver} onDrop={onCardDrop}>
+            <div>
             {
                 todoCardList.length>0 && 
                 todoCardList.map((todo, idx)=>(
@@ -74,9 +64,18 @@ export const TodoListBoard = ({todos})=>{
                     background: #e1e2e5;
                     border-radius: 2px;
                     width : 250px;
+                    user-select: none;
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+                    
                 }
                 .list-title{
                     font-size : 13px;
+                }
+                .dragging{
+                    transition: all 500ms
+                }
+                .none-draging{
+                    transition: none
                 }
             `}</style>
         </div>

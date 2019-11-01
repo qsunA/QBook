@@ -157,6 +157,15 @@ const TodoListProvider = ({children}) => {
             }
         });
     }
+
+    const changeOrderToddBoardList = ({todoBoardList})=>{
+        setTodoBoard(prev=>{
+            return{
+                ...prev,
+                todoBoardList : todoBoardList
+            }
+        });
+    }
     
     const todoBoardListState = {
         todoBoardList : [],
@@ -165,7 +174,8 @@ const TodoListProvider = ({children}) => {
         updateTodoBoard,
         updateTodoList,
         removeTodoBoard,
-        removeTodoList
+        removeTodoList,
+        changeOrderToddBoardList
     }
 
     const [todoBoard, setTodoBoard] = useState(todoBoardListState);
